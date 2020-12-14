@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e -x
 
+# supplement manylinux_2010
+yum install -y java-1.8.0-openjdk-devel pcre-devel
+
 # Require SWIG > 1.3.40 for Centos 6
 SWIGPREFIX=swig-2.0.10-5
 SWIGSRC=${SWIGPREFIX}.el7.src.rpm
@@ -16,7 +19,4 @@ rpm -i /root/rpmbuild/RPMS/x86_64/${SWIGPREFIX}*.rpm
 yum history rollback -y last-1
 rm $SWIGSRC
 rm -rf /root/rpmbuild
-
-# supplement manylinux_2010
-yum install -y java-1.8.0-openjdk-devel pcre-devel
 
