@@ -23,6 +23,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.CR_PAT }}
 
+      - name: Create tag from repo
+        run: | # Uses shell parameter expansion to lowercase
+          echo "REPO=${GITHUB_REPO,,}" >>${GITHUB_ENV}
+
       - name: Build and push image to GitHub Packages
         uses: docker/build-push-action@v2
         with:
@@ -32,5 +36,5 @@ jobs:
             ml_version=2010
           pull: true
           push: true
-          tags: manylinux-dls:2010_latest
+          tags: ${{ format("ghcr.io/{}:2010_latest", env.REPO }}
 
