@@ -25,9 +25,7 @@ jobs:
 
       - name: Create tag from repo
         run: | # Uses shell parameter expansion to lowercase
-          echo "TAG=ghcr.io/${GITHUB_REPO,,}:2010_latest" >> $GITHUB_ENV
-          echo "set environment ${GITHUB_ENV}"
-          echo "set repo ${TAG}"
+          echo "TAG=ghcr.io/${GITHUB_REPOSITORY,,}:2010_latest" >> $GITHUB_ENV
 
       - name: Build and push image to GitHub Packages
         uses: docker/build-push-action@v2
