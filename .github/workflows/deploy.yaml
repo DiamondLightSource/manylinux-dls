@@ -36,5 +36,5 @@ jobs:
             ml_version=2010
           pull: true
           push: true
-          tags: ${{ format('ghcr.io/{0}:2010_latest", env.REPO) }}
+          tags: ${{ format("ghcr.io/{0}:2010_latest", env.REPO) }}
 
