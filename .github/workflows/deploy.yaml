@@ -25,7 +25,9 @@ jobs:
 
       - name: Create tag from repo
         run: | # Uses shell parameter expansion to lowercase
-          echo "REPO=${GITHUB_REPO,,}" >>${GITHUB_ENV}
+          echo "REPO=${GITHUB_REPO,,}" >> $GITHUB_ENV
+          echo "::debug::set environment ${GITHUB_ENV}"
+          echo "::debug::set repo ${REPO}"
 
       - name: Build and push image to GitHub Packages
         uses: docker/build-push-action@v2
