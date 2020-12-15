@@ -1,6 +1,11 @@
 #!/bin/bash
 set -e -x
 
+ARCH=`uname -m`
+if [ $# -gt 0 ]; then
+  ARCH=$1
+fi
+
 # supplement manylinux_2010
 yum install -y java-1.8.0-openjdk-devel pcre-devel
 
@@ -12,7 +17,7 @@ curl -fsSLO https://vault.centos.org/7.9.2009/os/Source/SPackages/$SWIGSRC
 yum install -y rpm-build python-devel dos2unix perl-devel perl-Test-Simple boost-devel
 
 rpmbuild --quiet --rebuild $SWIGSRC --without testsuite --define 'guile 0' --define 'tcl 0'
-rpm -i /root/rpmbuild/RPMS/x86_64/${SWIGPREFIX}*.rpm
+rpm -i /root/rpmbuild/RPMS/$ARCH/${SWIGPREFIX}*.rpm
 
 # clean up
 # remove build packages
