@@ -7,7 +7,7 @@ if [ $# -gt 0 ]; then
 fi
 
 # supplement manylinux_2010
-yum install -y java-1.8.0-openjdk-devel pcre-devel
+yum install -y java-1.8.0-openjdk-devel
 
 # Require SWIG > 1.3.40 for Centos 6
 SWIGPREFIX=swig-2.0.10-5
@@ -24,4 +24,8 @@ rpm -i /root/rpmbuild/RPMS/$ARCH/${SWIGPREFIX}*.rpm
 yum history rollback -y last-1
 rm $SWIGSRC
 rm -rf /root/rpmbuild
+
+if [ $ARCH == 'x86_64' ]; then
+    source add_win32_cross_compile.sh
+fi
 
