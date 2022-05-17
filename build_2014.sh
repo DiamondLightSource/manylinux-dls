@@ -7,7 +7,8 @@ if [ $# -gt 0 ]; then
 fi
 
 # supplement manylinux_2014
-yum install -y java-1.8.0-openjdk-devel swig
+yum install -y epel-release
+yum install -y java-1.8.0-openjdk-devel swig git cmake3
 
 if [ $ARCH == 'x86_64' ]; then
     source add_win32_cross_compile.sh
