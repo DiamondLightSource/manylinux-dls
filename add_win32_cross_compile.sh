@@ -10,9 +10,11 @@ fi
 yum install -y mingw64-gcc
 
 # install jdk for Windows
-JDK_DIR=jdk-11.0.14.1+1
-JDK_ZIP=OpenJDK11U-jdk_x64_windows_hotspot_11.0.14.1_1.zip
-JDK_SHA=3e7da701aa92e441418299714f0ed6db10c3bb1e2db625c35a2c2cd9cc619731
+JDK_VERSION=11.0.15
+JDK_BUILD=10
+JDK_DIR=jdk-${JDK_VERSION}+${JDK_BUILD}
+JDK_ZIP=OpenJDK11U-jdk_x64_windows_hotspot_${JDK_VERSION}_${JDK_BUILD}.zip
+JDK_SHA=866edfc9c0bb2c88b5648626af3bf82513f56d072721d0d517de5797fd829fef
 curl -OL "https://github.com/adoptium/temurin11-binaries/releases/download/$JDK_DIR/$JDK_ZIP"
 echo -e "$JDK_SHA  $JDK_ZIP\n" > SHA256.SUM
 sha256sum -c SHA256.SUM
