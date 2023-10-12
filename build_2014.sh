@@ -8,7 +8,7 @@ fi
 
 # supplement manylinux_2014
 yum install -y epel-release
-yum install -y java-1.8.0-openjdk-devel swig git cmake3
+yum install -y java-11-openjdk
 
 if [ $ARCH == 'x86_64' ]; then
     source add_win32_cross_compile.sh
