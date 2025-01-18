@@ -8,21 +8,23 @@ on:
 jobs:
   push_to_registry:
     name: Build and push Docker image to GitHub Packages
-    runs-on: ubuntu-latest
     strategy:
       max-parallel: 2
       matrix:
-        ARCH: ["x86_64", "aarch64"]
-        PLAT: ["2014"]
+        include:
+          - ARCH: x86_64
+            OS: ubuntu-24.04
+            PLAT: "2014"
+          - ARCH: aarch64
+            OS: ubuntu-24.04-arm
+            PLAT: "2014"
+
+    # The type of runner that the job will run on
+    runs-on: ${{ matrix.OS }}
 
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-        with:
-          platforms: arm64
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -38,8 +40,8 @@ jobs:
         run: | # Uses shell parameter expansion to lowercase
           echo "TAG=ghcr.io/${GITHUB_REPOSITORY,,}-${{ matrix.PLAT }}_${{ matrix.ARCH }}:latest" >> $GITHUB_ENV
 
-      - name: Build and push image to GitHub Packages
-        uses: docker/build-push-action@v2
+      - name: Build and push image to GitHub Packages (${{ matrix.ARCH }})
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: ./Dockerfile
